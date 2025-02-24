@@ -32,12 +32,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { teacherService } from "@/services/teacher.service";
+import { useNavigate } from "react-router-dom";
 
 export default function TeachersTable() {
   const { teachers, paginations, query } = useSelector(
     (state: RootState) => state.teachers
   );
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const query: {
@@ -120,7 +122,10 @@ export default function TeachersTable() {
                 return (
                   <TableRow key={teacher.id}>
                     <TableCell>{teacher?.id}</TableCell>
-                    <TableCell>
+                    <TableCell
+                      className="text-blue-500 cursor-pointer"
+                      onClick={() => navigate(`/teachers/${teacher.id}`)}
+                    >
                       {teacher?.firstName} {teacher?.lastName}
                     </TableCell>
                     <TableCell>{teacher?.phone}</TableCell>

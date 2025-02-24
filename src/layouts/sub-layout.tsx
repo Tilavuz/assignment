@@ -1,5 +1,9 @@
+import { Outlet } from "react-router-dom";
+
 export default function SubLayout() {
   return (
-    <div>SubLayout</div>
-  )
+    <main>
+      <Outlet />
+    </main>
+  );
 }

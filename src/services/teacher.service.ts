@@ -1,4 +1,4 @@
-import { privateInstance } from "@/api/client-api";
+import { privateInstance, privateInstanceFile } from "@/api/client-api";
 import { url } from "@/constants/url";
 
 class TeacherService {
@@ -120,6 +120,42 @@ class TeacherService {
       return res.data;
     } catch (error) {
       console.error(error);
+      throw error;
+    }
+  }
+  async getTeacherFaces(id: number) {
+    try {
+      const res = await privateInstance.get(url.teacher.get_faces(id));
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+  async uploadTeacherPhoto({ photo, id }: { photo: string; id: number }) {
+    try {
+      const base64Data = photo.split(",")[1];
+      if (!base64Data) throw new Error("Base64 ma'lumot topilmadi!");
+
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Uint8Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const blob = new Blob([byteNumbers], { type: "image/png" });
+
+      const formData = new FormData();
+      formData.append("file", blob, "photo.png");
+      formData.append("teacherId", id.toString());
+
+      const res = await privateInstanceFile.post(
+        url.teacher.upload_photo,
+        formData
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error("Xatolik:", error);
       throw error;
     }
   }
