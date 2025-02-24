@@ -120,11 +120,11 @@ export default function TeachersTable() {
             {teachers &&
               teachers[query]?.map((teacher) => {
                 return (
-                  <TableRow key={teacher.id}>
+                  <TableRow key={teacher?.id}>
                     <TableCell>{teacher?.id}</TableCell>
                     <TableCell
                       className="text-blue-500 cursor-pointer"
-                      onClick={() => navigate(`/teachers/${teacher.id}`)}
+                      onClick={() => navigate(`/teachers/${teacher?.id}`)}
                     >
                       {teacher?.firstName} {teacher?.lastName}
                     </TableCell>
@@ -158,7 +158,7 @@ export default function TeachersTable() {
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancel</AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => deleteTeacherData(teacher.id)}
+                                onClick={() => deleteTeacherData(teacher?.id)}
                               >
                                 Continue
                               </AlertDialogAction>
@@ -174,11 +174,13 @@ export default function TeachersTable() {
         </Table>
       </div>
       <div>
-        <Pagination
-          totalPages={paginations[query]?.totalPages}
-          currentPage={paginations[query]?.page}
-          onPageChange={handlePage}
-        />
+        {paginations[query]?.totalPages > 0 && (
+          <Pagination
+            totalPages={paginations[query]?.totalPages}
+            currentPage={paginations[query]?.page}
+            onPageChange={handlePage}
+          />
+        )}
       </div>
     </div>
   );

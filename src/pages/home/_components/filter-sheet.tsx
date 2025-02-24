@@ -84,11 +84,11 @@ export default function FilterSheet() {
       keyword?: string;
     } = teachersFilterStorage.getQuery();
 
-    if (query.id) setId(`${query?.id}`);
-    if (query.firstName) setFirstName(query?.firstName);
-    if (query.lastName) setLastName(query?.lastName);
-    if (query.phone) setPhone(query?.phone);
-    if (query.pinfl) setPinfl(query?.pinfl);
+    if (query?.id) setId(`${query?.id}`);
+    if (query?.firstName) setFirstName(query?.firstName);
+    if (query?.lastName) setLastName(query?.lastName);
+    if (query?.phone) setPhone(query?.phone);
+    if (query?.pinfl) setPinfl(query?.pinfl);
   }, []);
 
   return (

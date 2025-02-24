@@ -93,7 +93,7 @@ export default function Identification() {
       if (!teacher || !photo) return;
       const data = await teacherService.uploadTeacherPhoto({
         photo,
-        id: teacher.id,
+        id: teacher?.id,
       });
       console.log(data);
     } catch (error) {

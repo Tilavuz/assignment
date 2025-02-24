@@ -103,7 +103,7 @@ const teacherSlice = createSlice({
     ) => {
       state.teachers[action.payload.query] = state.teachers[
         action.payload.query
-      ].filter((teacher) => teacher.id !== action.payload.id);
+      ].filter((teacher) => teacher?.id !== action.payload?.id);
     },
     addTeacher: (
       state,
@@ -121,7 +121,7 @@ const teacherSlice = createSlice({
       state.teachers[action.payload.query] = state.teachers[
         action.payload.query
       ].map((teacher) =>
-        teacher.id === action.payload.teacher.id
+        teacher?.id === action.payload.teacher?.id
           ? action.payload.teacher
           : teacher
       );

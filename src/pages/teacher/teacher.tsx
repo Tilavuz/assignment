@@ -29,7 +29,7 @@ export default function Teacher() {
           return (
             <div className="aspect-square relative overflow-hidden rounded-lg shadow-md">
               <img
-                key={teacherFace.id}
+                key={teacherFace?.id}
                 src={`${apiUrl}/v1/file/view/${teacherFace?.imgId}`}
                 alt={`teacher's image ${i + 1}`}
                 className="w-full h-full object-cover"
