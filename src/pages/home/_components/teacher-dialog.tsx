@@ -62,7 +62,7 @@ export default function TeacherDialog({
         const data = await teacherService.updateTeacher({
           degree,
           firstName,
-          id: teacher?.id,
+          id: teacher.id,
           lastName,
           phone,
           pinfl,
