@@ -45,7 +45,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
     for (
       let i = Math.max(2, currentPage - 1);
-      i <= Math.min(currentPage + 1, totalPages - 1);
+      i <= Math.min(currentPage + 1, totalPages - 2);
       i++
     ) {
       visiblePageNumbers.push(i);
@@ -55,7 +55,7 @@ const Pagination: React.FC<PaginationProps> = ({
       if (currentPage < totalPages - 2) {
         visiblePageNumbers.push("...");
       }
-      visiblePageNumbers.push(totalPages);
+      visiblePageNumbers.push(totalPages - 1);
     }
 
     return visiblePageNumbers.map((number, index) => (

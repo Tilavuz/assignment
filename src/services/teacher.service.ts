@@ -146,16 +146,29 @@ class TeacherService {
 
       const formData = new FormData();
       formData.append("file", blob, "photo.png");
-      formData.append("teacherId", id.toString());
 
       const res = await privateInstanceFile.post(
-        url.teacher.upload_photo,
+        url.teacher.upload_photo(id),
         formData
       );
 
       return res.data;
     } catch (error) {
       console.error("Xatolik:", error);
+      throw error;
+    }
+  }
+  async registrationTeacherFace({ id, file }: { id: number; file: File }) {
+    try {
+      const res = await privateInstanceFile.post(
+        url.teacher.registration_face(id),
+        {
+          file,
+        }
+      );
+      return res.data;
+    } catch (error) {
+      console.error(error);
       throw error;
     }
   }

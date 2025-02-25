@@ -7,32 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  changePage,
-  deleteTeacher,
-  filterTeachersThunk,
-} from "@/features/teacher-slice";
+import { changePage, filterTeachersThunk } from "@/features/teacher-slice";
 import { teachersFilterStorage } from "@/utils/teachers-filter-storage";
-import { Trash } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "./pagination";
-
-import { Button } from "@/components/ui/button";
 import TeacherDialog from "./teacher-dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { teacherService } from "@/services/teacher.service";
 import { useNavigate } from "react-router-dom";
+import TeacherTrashDialog from "./teacher-trash-dialog";
+import TeacherRegistrationFace from "./teacher-registration-face";
 
 export default function TeachersTable() {
   const { teachers, paginations, query } = useSelector(
@@ -90,17 +73,6 @@ export default function TeachersTable() {
     }
   };
 
-  const deleteTeacherData = async (id: number) => {
-    try {
-      const data = await teacherService.deleteTeacher(id);
-      if (data.success) {
-        dispatch(deleteTeacher({ query, id }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div>
       <div>
@@ -134,37 +106,9 @@ export default function TeachersTable() {
                     <TableCell>{teacher?.position}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
+                        <TeacherRegistrationFace id={teacher?.id} />
                         <TeacherDialog type="update" teacher={teacher} />
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              className="cursor-pointer"
-                              variant={"destructive"}
-                            >
-                              <Trash />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Are you absolutely sure?
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete your account and remove your
-                                data from our servers.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => deleteTeacherData(teacher?.id)}
-                              >
-                                Continue
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        <TeacherTrashDialog id={teacher?.id} />
                       </div>
                     </TableCell>
                   </TableRow>
