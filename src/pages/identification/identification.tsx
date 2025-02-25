@@ -24,6 +24,7 @@ export default function Identification() {
   const [photo, setPhoto] = useState<string | null>(null);
   const [id, setId] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -95,7 +96,9 @@ export default function Identification() {
         photo,
         id: teacher?.id,
       });
-      console.log(data);
+      if (data.success) {
+        setOpen(false);
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         alert(error.response?.data?.errorMessage);
@@ -130,7 +133,7 @@ export default function Identification() {
           </>
         </div>
         <div className="">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button
                 variant={"outline"}
